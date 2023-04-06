@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     private GameManager gameManager;
     private Transform toAttack;
     private Animator anim;
+    public int health = 1;
     
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,10 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator attack()

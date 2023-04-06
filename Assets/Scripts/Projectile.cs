@@ -45,7 +45,12 @@ public class Projectile : MonoBehaviour
             Instantiate(explodeProjectile, transform.position, Quaternion.Euler(rotationVector));
         }
 
-        Destroy(other.gameObject);
+        if(other.gameObject.GetComponent<Enemy>() != null)
+            other.gameObject.GetComponent<Enemy>().health -= 1;
+        else
+            other.gameObject.GetComponent<Soldier>().health -= 1;
+            
+        
         Destroy(gameObject);
     }
 

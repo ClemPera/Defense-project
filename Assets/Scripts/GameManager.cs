@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject spawnPrefab;
     public GameObject soldierPrefab;
+    public int playerHp = 100;
     public float defHp = 1000;
     public Boolean bonusValidation = true;
     public TextMeshProUGUI hpText;
@@ -23,11 +25,19 @@ public class GameManager : MonoBehaviour
     public float projectileInstantiationSpeed = 0.2f;
 
     public float projectileNumber = 0;
+    
+    public Texture health1;
+    private Image h;
+
+    public Image hfull;
     // Start is called before the first frame update
     void Start()
     {
+        Texture h = GameObject.Find("Health1").GetComponent<Image>();
+        h = health1;
         StartCoroutine(SpawnWave());
         StartCoroutine(SpawnBonus());
+        StartCoroutine(Health());
     }
 
     // Update is called once per frame
@@ -52,15 +62,6 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
     }
-//    IEnumerator SpawnEnemy()
-//    {
-//        while (true)
-//        {
-//            yield return new WaitForSeconds(0.3f);
-//            Vector3 spawnPos = new Vector3(Random.Range(-45, 45), 0, 40);
-//            Instantiate(spawnPrefab, spawnPos, spawnPrefab.transform.rotation);
-//        }
-//    }
 
     IEnumerator SpawnWave()
     {
@@ -79,6 +80,16 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(30);
             y += 10;
+        }
+    }
+
+    IEnumerator Health()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+            //Modify Health1 in canvas
+            
         }
     }
 }
