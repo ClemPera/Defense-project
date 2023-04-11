@@ -34,6 +34,7 @@ public class SoldierProjectile : MonoBehaviour
         else if (col.gameObject.CompareTag("Player"))
         {
             gameManager.playerHp -= 1;
+            Destroy(gameObject);
         }
     }
 }

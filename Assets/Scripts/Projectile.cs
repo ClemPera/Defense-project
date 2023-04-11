@@ -23,17 +23,13 @@ public class Projectile : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerAudio = GetComponent<AudioSource>();
         playerAudio.PlayOneShot(shotSound, shotVolume);
+        StartCoroutine(deleteProjectile());
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        if (transform.position.x < -100 || transform.position.x > 100 || transform.position.z < -100 ||
-            transform.position.z > 100)
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,7 +43,7 @@ public class Projectile : MonoBehaviour
 
         if(other.gameObject.GetComponent<Enemy>() != null)
             other.gameObject.GetComponent<Enemy>().health -= 1;
-        else
+        else if(other.gameObject.GetComponent<Soldier>() != null)
             other.gameObject.GetComponent<Soldier>().health -= 1;
             
         
@@ -60,5 +56,10 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    IEnumerator deleteProjectile()
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 }

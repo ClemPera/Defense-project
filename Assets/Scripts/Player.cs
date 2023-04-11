@@ -25,6 +25,7 @@ public class Player: MonoBehaviour
     public TextMeshProUGUI TextE;
     public TextMeshProUGUI bonusTextA;
     public TextMeshProUGUI bonusTextE;
+    public TextMeshProUGUI regen;
     private GameManager gameManager;
     
     private bool[] availableBonus = new bool[10];
@@ -89,6 +90,60 @@ public class Player: MonoBehaviour
             StartCoroutine(chooseBonus(other));
             Destroy(other.gameObject);
         }
+
+        if (other.CompareTag("Regen"))
+        {
+            if (gameManager.playerHp <= 90)
+            {
+                regen.gameObject.SetActive(true);
+                StartCoroutine(regenEnCours(other));
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Regen"))
+        {
+            regen.gameObject.SetActive(false);
+            StopCoroutine(regenEnCours(other));
+        }
+    }
+
+    private IEnumerator regenEnCours(Collider other)
+    {
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.E))
+            {
+                transform.position = new Vector3(other.transform.position.x, transform.position.y, other.transform.position.z);
+                String oldRegen = regen.GetParsedText();
+                
+                regen.SetText("Regeneration en cours");
+                StartCoroutine(regeneration());
+                
+                yield return new WaitForSeconds(5);
+                
+                regen.SetText(oldRegen);
+                break;
+            }
+            yield return null;
+        }
+    }
+    private IEnumerator regeneration() {
+        gameManager.playerHp += 10;
+        
+        float oldSpeed = speed;
+        yield return new WaitForSeconds(0.01f);
+        speed = 0;
+        
+        yield return new WaitForSeconds(5);
+        speed = oldSpeed;
+    }
+
+    private IEnumerator StopMoving() {
+        yield return new WaitForSeconds(5);
+        speed = 7;
     }
 
     private IEnumerator chooseBonus(Collider other)

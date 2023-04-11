@@ -12,10 +12,12 @@ public class Soldier : MonoBehaviour
     public GameObject projectilePrefab;
     private NavMeshAgent agent;
     public int health = 5;
+    private Animator anim;
     
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>(); 
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find("Player");
         toAttack = GameObject.Find("Player").transform;
@@ -30,10 +32,18 @@ public class Soldier : MonoBehaviour
         
         if(health <= 0)
         {
-            Destroy(gameObject);
+            StopCoroutine(attack());
+            anim.SetTrigger("die");
+            agent.speed = 0;
+            StartCoroutine(die());
         }
     }
     
+    IEnumerator die()
+    {
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
+    }
     IEnumerator attack()
     {
         while (true)

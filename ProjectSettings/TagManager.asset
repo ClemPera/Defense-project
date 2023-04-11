@@ -8,6 +8,7 @@ TagManager:
   - Defence point
   - Powerup
   - Wall
+  - Regen
   layers:
   - Default
   - TransparentFX
