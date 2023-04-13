@@ -7,35 +7,51 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    private GameManager gameManager;
     private Transform toAttack;
     private Animator anim;
     private NavMeshAgent agent;
+    private Collider col;
     public int health = 1;
     
     // Start is called before the first frame update
+    private Coroutine atk = null;
     void Start()
     {
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        col = GetComponent<Collider>();
         toAttack = GameObject.Find("Defence point").transform;
         agent = GetComponent<NavMeshAgent>();
         agent.destination = new UnityEngine.Vector3(UnityEngine.Random.Range(-25,25), toAttack.position.y, toAttack.position.z);
-        StartCoroutine(attack());
+        atk = StartCoroutine(attack());
         anim = GetComponent<Animator>();
+        StartCoroutine(checkDeath());
+
+        GameManager.ennemies += 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
-        {
-            StopCoroutine(attack());
-            anim.SetTrigger("die");
-            agent.speed = 0;
-            StartCoroutine(die());
-        }
     }
 
+    IEnumerator checkDeath()
+    {
+        
+        bool isDead = false;
+        while (!isDead)
+        {
+            if (health <= 0)
+            {
+                GameManager.ennemies -= 1;
+                StopCoroutine(atk);
+                anim.SetTrigger("die");
+                col.enabled = false;
+                agent.enabled = false;
+                StartCoroutine(die());
+                isDead = true;
+            }
+            yield return null;
+        }
+    }
     IEnumerator die()
     {
         yield return new WaitForSeconds(2);
@@ -49,7 +65,7 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(1);
             if (transform.position.z < 0.0f)
             {
-                gameManager.defHp -= 1;
+                GameManager.defHp -= 1;
                 anim.SetTrigger("attack");
             }
         }

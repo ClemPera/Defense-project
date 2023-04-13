@@ -52,7 +52,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!65 &1228969405450980151
 BoxCollider:
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810ab0cdbf53a0e7599e8e4260375e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
 --- !u!95 &828641414
 Animator:
   serializedVersion: 5

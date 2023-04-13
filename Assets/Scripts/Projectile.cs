@@ -16,11 +16,9 @@ public class Projectile : MonoBehaviour
 
     public GameObject explodeProjectile;
 
-    private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerAudio = GetComponent<AudioSource>();
         playerAudio.PlayOneShot(shotSound, shotVolume);
         StartCoroutine(deleteProjectile());
@@ -34,7 +32,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        for (int i= 0; i < gameManager.projectileNumber; i += 1)
+        for (int i= 0; i < GameManager.projectileNumber; i += 1)
         {
             var rotationVector = transform.rotation.eulerAngles;
             rotationVector.y += UnityEngine.Random.Range(0, 360);

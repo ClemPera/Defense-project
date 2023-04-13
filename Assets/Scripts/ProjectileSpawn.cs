@@ -5,12 +5,10 @@ using UnityEngine;
 public class ProjectileSpawn : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    private GameManager gameManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         StartCoroutine(projectile1());
     }
 
@@ -27,7 +25,7 @@ public class ProjectileSpawn : MonoBehaviour
             {
                 Instantiate(projectilePrefab, transform.position, transform.rotation);
             }
-            yield return new WaitForSeconds(gameManager.projectileInstantiationSpeed);
+            yield return new WaitForSeconds(GameManager.projectileInstantiationSpeed);
         }
     }
 }

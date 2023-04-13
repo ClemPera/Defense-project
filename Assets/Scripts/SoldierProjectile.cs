@@ -5,12 +5,10 @@ using UnityEngine;
 public class SoldierProjectile : MonoBehaviour
 {
     public float speed = 30f;
-    private GameManager gameManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -33,7 +31,7 @@ public class SoldierProjectile : MonoBehaviour
         }
         else if (col.gameObject.CompareTag("Player"))
         {
-            gameManager.playerHp -= 1;
+            GameManager.playerHp -= 1;
             Destroy(gameObject);
         }
     }

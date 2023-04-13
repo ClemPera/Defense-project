@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -11,21 +12,26 @@ public class GameManager : MonoBehaviour
 {
     public GameObject spawnPrefab;
     public GameObject soldierPrefab;
-    public int playerHp = 100;
-    public float defHp = 1000;
-    public Boolean bonusValidation = true;
+    public static int playerHp = 100;
+    public static float defHp = 1000;
+    public static int vagues = 0;
+    public static int maxVagues = 1;
+    public static int ennemies = 0;
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI bonusSpawn;
+    public TextMeshProUGUI vaguesText;
+    public TextMeshProUGUI ennemiesText;
 
+    public static Boolean bonusValidation = true;
     public GameObject bonusPrefab;
     public float mapSizeXBegin;
     public float mapSizeXEnd;
     public float mapSizeZBegin;
     public float mapSizeZEnd;
 
-    public float projectileInstantiationSpeed = 0.2f;
+    public static float projectileInstantiationSpeed = 0.2f;
 
-    public float projectileNumber = 0;
+    public static float projectileNumber = 0;
 
     private RawImage health1;
     private RawImage health2;
@@ -51,11 +57,14 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawnWave());
         StartCoroutine(SpawnBonus());
         StartCoroutine(Health());
+        StartCoroutine(win());
     }
 
     // Update is called once per frame
     void Update()
     {
+        vaguesText.text = "Vagues: " + vagues + "/" + maxVagues;
+        ennemiesText.text = "Ennemies: " + ennemies;
         hpText.text = defHp + "/1000";
         defenceHealth.maxValue = 1000;
         defenceHealth.value = defHp;
@@ -65,7 +74,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            if (bonusValidation == true) //Quand le choix du bonus est validé, lancer le décompte pour un autre bonus
+            if (bonusValidation) //Quand le choix du bonus est validé, lancer le décompte pour un autre bonus
             {
                 yield return new WaitForSeconds(30);
                 Vector3 spawnPos = new Vector3(Random.Range(mapSizeXBegin, mapSizeXEnd), 1,
@@ -79,6 +88,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator win()
+    {
+        while (true)
+        {
+            if (vagues == maxVagues)
+            {
+                StopCoroutine(SpawnWave());
+                StopCoroutine(SpawnBonus());
+                if (ennemies == 0)
+                {
+                    SceneManager.LoadScene("Victoire");
+                }
+            }
+
+            yield return null;
+        }
+    }
+    
     IEnumerator BonusSpawnText(){
         bonusSpawn.gameObject.SetActive(true);
         yield return new WaitForSeconds(3);
@@ -91,6 +118,9 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             Vector3 spawnPos = new Vector3(Random.Range(-45, 45), 0, 40);
+
+
+            StartCoroutine(augmenterVague());
             for (int x = 0; x <= y; x++)
             {
                 Instantiate(spawnPrefab, spawnPos, spawnPrefab.transform.rotation);
@@ -103,6 +133,12 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(30);
             y += 10;
         }
+    }
+
+    IEnumerator augmenterVague()
+    {
+        yield return new WaitForSeconds(0.5f);
+        vagues += 1;
     }
 
     IEnumerator Health()

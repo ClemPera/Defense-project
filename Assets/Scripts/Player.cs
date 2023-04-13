@@ -26,7 +26,6 @@ public class Player: MonoBehaviour
     public TextMeshProUGUI bonusTextA;
     public TextMeshProUGUI bonusTextE;
     public TextMeshProUGUI regen;
-    private GameManager gameManager;
     
     private bool[] availableBonus = new bool[10];
 
@@ -34,7 +33,6 @@ public class Player: MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         anim = GetComponent<Animator>(); 
         cam = Camera.main;
         
@@ -81,6 +79,9 @@ public class Player: MonoBehaviour
         {
             anim.SetBool("Walk", false);
         }
+        
+        if(transform.position.z > 24)
+            transform.position = new Vector3(transform.position.x, transform.position.y, 24);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -93,7 +94,7 @@ public class Player: MonoBehaviour
 
         if (other.CompareTag("Regen"))
         {
-            if (gameManager.playerHp <= 90)
+            if (GameManager.playerHp <= 90)
             {
                 regen.gameObject.SetActive(true);
                 StartCoroutine(regenEnCours(other));
@@ -131,7 +132,7 @@ public class Player: MonoBehaviour
         }
     }
     private IEnumerator regeneration() {
-        gameManager.playerHp += 10;
+        GameManager.playerHp += 10;
         
         float oldSpeed = speed;
         yield return new WaitForSeconds(0.01f);
@@ -179,7 +180,7 @@ public class Player: MonoBehaviour
         bonusTextE.gameObject.SetActive(false);
         TextA.gameObject.SetActive(false);
         TextE.gameObject.SetActive(false);
-        gameManager.bonusValidation = true;
+        GameManager.bonusValidation = true;
 
     }
     private bool bonus(int b, TextMeshProUGUI text, KeyCode key)
@@ -190,7 +191,7 @@ public class Player: MonoBehaviour
                 
             if (Input.GetKeyDown(key))
             {
-                gameManager.projectileInstantiationSpeed -= (gameManager.projectileInstantiationSpeed * 10) / 100;
+                GameManager.projectileInstantiationSpeed -= (GameManager.projectileInstantiationSpeed * 10) / 100;
                 return true;
             }
         }
@@ -201,7 +202,7 @@ public class Player: MonoBehaviour
                 
             if (Input.GetKeyDown(key))
             {
-                gameManager.projectileNumber = 1;
+                GameManager.projectileNumber = 1;
                 availableBonus[1] = false;
                 
                 return true;
