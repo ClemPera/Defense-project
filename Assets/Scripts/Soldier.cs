@@ -29,6 +29,7 @@ public class Soldier : MonoBehaviour
         atk = StartCoroutine(attack());
         StartCoroutine(checkDeath());
         dest = StartCoroutine(destination());
+        
         GameManager.ennemies += 1;
     }
 
@@ -57,14 +58,11 @@ public class Soldier : MonoBehaviour
             {
                 GameManager.ennemies -= 1;
                 StopCoroutine(atk);
-                Debug.Log("S1");
                 StopCoroutine(dest);
-                Debug.Log("S2");
                 anim.SetTrigger("die");
                 col.enabled = false;
                 agent.enabled = false;
                 StartCoroutine(die());
-                Debug.Log("S3");
                 isDead = true;
             }
 
@@ -74,9 +72,8 @@ public class Soldier : MonoBehaviour
 
     IEnumerator die()
     {
-        Debug.Log("D1");
+        GameManager.maxEnnemies += 1;
         yield return new WaitForSeconds(2);
-        Debug.Log("D2");
         Destroy(gameObject);
     }
     IEnumerator attack()

@@ -12,6 +12,7 @@ public class Bouton : MonoBehaviour
 
     public void jouer() {
         SceneManager.LoadScene("Main Scene");
+        GameManager.map = 1;
     }
     
     public void menu() {

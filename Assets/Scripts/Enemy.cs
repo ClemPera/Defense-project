@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator die()
     {
+        GameManager.maxEnnemies += 1;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
     }
