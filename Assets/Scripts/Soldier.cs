@@ -6,8 +6,6 @@ using UnityEngine.UIElements;
 
 public class Soldier : MonoBehaviour
 {
-    public float speed;
-    private GameObject player;
     private Transform toAttack;
     public GameObject projectilePrefab;
     private NavMeshAgent agent;
@@ -24,7 +22,6 @@ public class Soldier : MonoBehaviour
         col = GetComponent<Collider>();
         anim = GetComponent<Animator>(); 
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.Find("Player");
         toAttack = GameObject.Find("Player").transform;
         atk = StartCoroutine(attack());
         StartCoroutine(checkDeath());

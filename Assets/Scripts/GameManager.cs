@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Android;
@@ -8,12 +9,13 @@ using UnityEngine.Animations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject spawnPrefab;
     public GameObject soldierPrefab;
-    public static int map = 0;
+    public static int map = 2;
     public static int playerHp = Victoire.playerHp;
     public static float defHp = Victoire.defHp;
     public static int vagues = Victoire.vagues;
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
             playerHp = 100;
             defHp = 1000;
             vagues = 0;
-            maxVagues = 1;
+            maxVagues = 2;
             maxEnnemies = 0;
             projectileInstantiationSpeed = 0.2f;
             projectileNumber = 0;
@@ -112,21 +114,10 @@ public class GameManager : MonoBehaviour
                 {
                     spawnPos = new Vector3(Random.Range(-40, 0), 1,
                         Random.Range(23, 7));
-                }else if (map == 2)
-                {/*
-                    //TODO:
-                    -40 à -30
-                    0 à 30
-                    
-                    62 à 40 
-                    -61.5 à -40
-                    
-                    
-                    -30 / 30
-                    40 / -40
-                    //spawnPos = new Vector3(Random.Range(62, -51.5f), 1,
-                    //  Random.Range(-63, 50));
-                    */
+                }else if (map == 2) 
+                {
+                    spawnPos = new Vector3(Random.Range(-30, 40), 1,
+                        Random.Range(30, -40));
                 }
 
                 Instantiate(bonusPrefab, spawnPos, bonusPrefab.transform.rotation);
@@ -182,18 +173,43 @@ public class GameManager : MonoBehaviour
         int y = 30;
         while (true)
         {
-            Vector3 spawnPos = new Vector3(Random.Range(-45, 45), 0, 40);
-
+            Vector3 spawnPos = new Vector3();
             StartCoroutine(augmenterVague());
+            if(map == 1)
+            {
+                spawnPos = new Vector3(Random.Range(-45, 45), 0, 40);
+            }
+            else if (map == 2)
+            {
+                switch (Random.Range(0, 4))
+                {
+                    case 0:
+                        spawnPos = new Vector3(-41, 0, Random.Range(-41, 31));
+                        break;
+                    case 1:
+                        spawnPos = new Vector3(41, 0, Random.Range(-41, 31));
+                        break;
+                    case 2:
+                        spawnPos = new Vector3(Random.Range(-41, 41), 0, 41);
+                        break;
+                    case 3:
+                        spawnPos = new Vector3(Random.Range(-41, 41), 0, -51);
+                        break;
+                }
+            }
+            
             for (int x = 0; x <= y; x++)
             {
                 Instantiate(spawnPrefab, spawnPos, spawnPrefab.transform.rotation);
-                
-                if (x < y / 10) {
+
+                if (x < y / 10)
+                {
                     Instantiate(soldierPrefab, spawnPos, soldierPrefab.transform.rotation);
                 }
+
                 yield return new WaitForSeconds(0.1f);
             }
+
             yield return new WaitForSeconds(30);
             y += 10;
         }
@@ -337,7 +353,7 @@ public class GameManager : MonoBehaviour
                 health4.texture = h0;
                 health5.texture = h0;
             }
-        yield return null; 
+            yield return null; 
         }
     }
 }

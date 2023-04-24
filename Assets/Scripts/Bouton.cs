@@ -18,4 +18,5 @@ public class Bouton : MonoBehaviour
     public void menu() {
         SceneManager.LoadScene("Menu");
     }
+    //Ajouter mode infini qui load la bonne map
 }

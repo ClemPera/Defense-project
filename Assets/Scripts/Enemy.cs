@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -20,7 +21,10 @@ public class Enemy : MonoBehaviour
         col = GetComponent<Collider>();
         toAttack = GameObject.Find("Defence point").transform;
         agent = GetComponent<NavMeshAgent>();
-        agent.destination = new UnityEngine.Vector3(UnityEngine.Random.Range(-25,25), toAttack.position.y, toAttack.position.z);
+        if (GameManager.map == 1)
+            agent.destination = new UnityEngine.Vector3(Random.Range(-25,25), toAttack.position.y, toAttack.position.z);
+        else if (GameManager.map == 2)
+            agent.destination = new UnityEngine.Vector3(Random.Range(5,7),toAttack.position.y, Random.Range(-9, 0));
         atk = StartCoroutine(attack());
         anim = GetComponent<Animator>();
         StartCoroutine(checkDeath());
@@ -64,7 +68,7 @@ public class Enemy : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            if (transform.position.z < 0.0f)
+            if (agent.remainingDistance <= 1)
             {
                 GameManager.defHp -= 1;
                 anim.SetTrigger("attack");

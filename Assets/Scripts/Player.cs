@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
             {
                 transform.position = new Vector3(other.transform.position.x, transform.position.y,
                     other.transform.position.z);
@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
         int rb, rb2;
         bool ok = false;
         bool ok2 = false;
-        KeyCode key = KeyCode.A;
+        KeyCode key = KeyCode.Q;
         KeyCode key2 = KeyCode.E;
 
         do
