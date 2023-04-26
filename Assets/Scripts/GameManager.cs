@@ -92,8 +92,8 @@ public class GameManager : MonoBehaviour
                         Random.Range(23, 7));
                 }else if (map == 2) 
                 {
-                    spawnPos = new Vector3(Random.Range(-30, 40), 1,
-                        Random.Range(30, -40));
+                    spawnPos = new Vector3(Random.Range(-28, 38), 1,
+                        Random.Range(28, -38));
                 }
 
                 Instantiate(bonusPrefab, spawnPos, bonusPrefab.transform.rotation);
@@ -209,7 +209,6 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-
             if (playerHp == 100) {
                 health1.texture = h100;
                 health2.texture = h100;

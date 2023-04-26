@@ -426,10 +426,6 @@ MonoBehaviour:
   ennemiesText: {fileID: 1806910698}
   bonusValidation: 1
   bonusPrefab: {fileID: 5933635905714397555, guid: 3bd07ad7331524f6dbfac8df5b04bc7d, type: 3}
-  mapSizeXBegin: -40
-  mapSizeXEnd: 0
-  mapSizeZBegin: 23
-  mapSizeZEnd: 7
   h0: {fileID: 2800000, guid: 0aeab3a4b7d884d47badc85c9236b090, type: 3}
   h25: {fileID: 2800000, guid: d8e56b858b57229449402a749d280d33, type: 3}
   h50: {fileID: 2800000, guid: c9b447e1c878d374d85d58d141a1e929, type: 3}
@@ -1139,7 +1135,7 @@ GameObject:
   - component: {fileID: 478138896}
   - component: {fileID: 478138895}
   m_Layer: 5
-  m_Name: 'Bonus Text E '
+  m_Name: 'Bonus Text 2 '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1667,7 +1663,7 @@ GameObject:
   - component: {fileID: 716435545}
   - component: {fileID: 716435544}
   m_Layer: 5
-  m_Name: A
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1713,7 +1709,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'A:'
+  m_text: '1:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2561,7 +2557,7 @@ GameObject:
   - component: {fileID: 973540063}
   - component: {fileID: 973540062}
   m_Layer: 5
-  m_Name: E
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2607,7 +2603,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'E:'
+  m_text: '2:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5295,7 +5291,7 @@ GameObject:
   - component: {fileID: 1658847495}
   - component: {fileID: 1658847494}
   m_Layer: 5
-  m_Name: Bonus Text A
+  m_Name: Bonus Text 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

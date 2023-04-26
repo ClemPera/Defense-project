@@ -32,6 +32,7 @@ public class SoldierProjectile : MonoBehaviour
         else if (col.gameObject.CompareTag("Player"))
         {
             GameManager.playerHp -= 1;
+            Cam.Shake();
             Destroy(gameObject);
         }
     }

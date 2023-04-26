@@ -8,10 +8,8 @@ public class Player : MonoBehaviour
 {
     private Camera cam;
 
-    public float speed = 7f;
-
+    public static float speed = 7f;
     public float horIn;
-
     public float verIn;
 
     private Animator anim;
@@ -21,6 +19,8 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI bonusTextA;
     public TextMeshProUGUI bonusTextE;
     public TextMeshProUGUI regen;
+    
+    public Coroutine regenEnCoursCoroutine = null;
 
     private bool[] availableBonus = new bool[10];
 
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
             if (GameManager.playerHp <= 90)
             {
                 regen.gameObject.SetActive(true);
-                StartCoroutine(regenEnCours(other));
+                regenEnCoursCoroutine = StartCoroutine(regenEnCours(other));
             }
         }
     }
@@ -123,7 +123,9 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Regen"))
         {
             regen.gameObject.SetActive(false);
-            StopCoroutine(regenEnCours(other));
+            
+            if(regenEnCoursCoroutine != null)
+                StopCoroutine(regenEnCoursCoroutine);
         }
     }
 
@@ -173,14 +175,13 @@ public class Player : MonoBehaviour
         int rb, rb2;
         bool ok = false;
         bool ok2 = false;
-        KeyCode key = KeyCode.Q;
-        KeyCode key2 = KeyCode.E;
+        KeyCode key = KeyCode.Alpha1;
+        KeyCode key2 = KeyCode.Alpha2;
 
         do
         {
             rb = UnityEngine.Random.Range(0, availableBonus.Length);
         } while (availableBonus[rb] == false);
-
 
         do
         {
@@ -233,10 +234,11 @@ public class Player : MonoBehaviour
         }
         else if (b == 2)
         {
-            text.text = "Autre bonus (WIP)";
+            text.text = "Vitesse de déplacement";
 
             if (Input.GetKeyDown(key))
             {
+                speed += (speed * 10) / 100;
                 return true;
             }
         }
