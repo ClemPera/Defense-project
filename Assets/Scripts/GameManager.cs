@@ -15,13 +15,14 @@ public class GameManager : MonoBehaviour
 {
     public GameObject spawnPrefab;
     public GameObject soldierPrefab;
-    public static int map = 2;
-    public static int playerHp = Victoire.playerHp;
-    public static float defHp = Victoire.defHp;
-    public static int vagues = Victoire.vagues;
-    public static int maxVagues = Victoire.maxVagues;
-    public static int ennemies = 0;
-    public static int maxEnnemies = Victoire.maxEnnemies;
+    public static int map;
+    public static int playerHp = 100;
+    public static float defHp = 1000;
+    public static int vagues = 0;
+    public static int vaguesSimultanees = 1;
+    public static int maxVagues = 10;
+    public int ennemies = 0;
+    public static int maxEnnemies = 0;
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI bonusSpawn;
     public TextMeshProUGUI vaguesText;
@@ -29,14 +30,10 @@ public class GameManager : MonoBehaviour
 
     public bool bonusValidation = true;
     public GameObject bonusPrefab;
-    public float mapSizeXBegin;
-    public float mapSizeXEnd;
-    public float mapSizeZBegin;
-    public float mapSizeZEnd;
 
-    public static float projectileInstantiationSpeed = Victoire.projectileInstantiationSpeed;
+    public static float projectileInstantiationSpeed = 0.2f;
 
-    public static float projectileNumber = Victoire.projectileNumber;
+    public static float projectileNumber = 0;
 
     private RawImage health1;
     private RawImage health2;
@@ -52,33 +49,12 @@ public class GameManager : MonoBehaviour
 
     public Slider defenceHealth;
     
-    
     private Coroutine spawnWaveCoroutine = null;
     private Coroutine spawnBonusCoroutine = null;
     
     // Start is called before the first frame update
     void Start()
     {
-        if (!Victoire.victoire)
-        {
-            playerHp = 100;
-            defHp = 1000;
-            vagues = 0;
-            maxVagues = 2;
-            maxEnnemies = 0;
-            projectileInstantiationSpeed = 0.2f;
-            projectileNumber = 0;
-        }
-        else
-        {
-            playerHp = Victoire.playerHp;
-            defHp = Victoire.defHp;
-            vagues = Victoire.vagues;
-            maxVagues = Victoire.maxVagues;
-            maxEnnemies = Victoire.maxEnnemies;
-            projectileInstantiationSpeed = Victoire.projectileInstantiationSpeed;
-            projectileNumber = Victoire.projectileNumber;
-        }
         
         health1 = GameObject.Find("Health1").GetComponent<RawImage>();
         health2 = GameObject.Find("Health2").GetComponent<RawImage>();
@@ -175,39 +151,42 @@ public class GameManager : MonoBehaviour
         {
             Vector3 spawnPos = new Vector3();
             StartCoroutine(augmenterVague());
-            if(map == 1)
+            for (int i = 0; i < vaguesSimultanees; i++)
             {
-                spawnPos = new Vector3(Random.Range(-45, 45), 0, 40);
-            }
-            else if (map == 2)
-            {
-                switch (Random.Range(0, 4))
+                if (map == 1)
                 {
-                    case 0:
-                        spawnPos = new Vector3(-41, 0, Random.Range(-41, 31));
-                        break;
-                    case 1:
-                        spawnPos = new Vector3(41, 0, Random.Range(-41, 31));
-                        break;
-                    case 2:
-                        spawnPos = new Vector3(Random.Range(-41, 41), 0, 41);
-                        break;
-                    case 3:
-                        spawnPos = new Vector3(Random.Range(-41, 41), 0, -51);
-                        break;
+                    spawnPos = new Vector3(Random.Range(-45, 45), 0, 40);
                 }
-            }
-            
-            for (int x = 0; x <= y; x++)
-            {
-                Instantiate(spawnPrefab, spawnPos, spawnPrefab.transform.rotation);
-
-                if (x < y / 10)
+                else if (map == 2)
                 {
-                    Instantiate(soldierPrefab, spawnPos, soldierPrefab.transform.rotation);
+                    switch (Random.Range(0, 4))
+                    {
+                        case 0:
+                            spawnPos = new Vector3(-41, 0, Random.Range(-41, 31));
+                            break;
+                        case 1:
+                            spawnPos = new Vector3(41, 0, Random.Range(-41, 31));
+                            break;
+                        case 2:
+                            spawnPos = new Vector3(Random.Range(-41, 41), 0, 41);
+                            break;
+                        case 3:
+                            spawnPos = new Vector3(Random.Range(-41, 41), 0, -51);
+                            break;
+                    }
                 }
 
-                yield return new WaitForSeconds(0.1f);
+                for (int x = 0; x <= y; x++)
+                {
+                    Instantiate(spawnPrefab, spawnPos, spawnPrefab.transform.rotation);
+
+                    if (x < y / 10)
+                    {
+                        Instantiate(soldierPrefab, spawnPos, soldierPrefab.transform.rotation);
+                    }
+
+                    yield return new WaitForSeconds(0.1f);
+                }
             }
 
             yield return new WaitForSeconds(30);
@@ -219,6 +198,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         vagues += 1;
+        
+        if (vagues % 5 == 0)
+        {
+            vaguesSimultanees += 1;
+        }
     }
 
     IEnumerator Health()

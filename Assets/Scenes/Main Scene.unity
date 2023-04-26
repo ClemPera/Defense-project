@@ -419,6 +419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefab: {fileID: 1228969406450134147, guid: 9e4e2b665ec8f3e7b9873993cb4e2521, type: 3}
   soldierPrefab: {fileID: 2627702553208591668, guid: 2ba20565abe99054fb99bcf194575230, type: 3}
+  ennemies: 0
   hpText: {fileID: 522217698}
   bonusSpawn: {fileID: 1375559850}
   vaguesText: {fileID: 1333029568}
@@ -3923,7 +3924,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -313.72687, y: 0, z: 257.29303, w: 7.0102386}
+  m_margin: {x: -313.72687, y: 0, z: 195.80502, w: 7.0102386}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

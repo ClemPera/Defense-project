@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class Soldier : MonoBehaviour
 {
+    private GameManager gameManager;
     private Transform toAttack;
     public GameObject projectilePrefab;
     private NavMeshAgent agent;
@@ -19,6 +20,8 @@ public class Soldier : MonoBehaviour
     private Coroutine atk = null;
     void Start()
     {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        
         col = GetComponent<Collider>();
         anim = GetComponent<Animator>(); 
         agent = GetComponent<NavMeshAgent>();
@@ -27,7 +30,7 @@ public class Soldier : MonoBehaviour
         StartCoroutine(checkDeath());
         dest = StartCoroutine(destination());
         
-        GameManager.ennemies += 1;
+        gameManager.ennemies += 1;
     }
 
     // Update is called once per frame
@@ -53,7 +56,7 @@ public class Soldier : MonoBehaviour
         {
             if (health <= 0)
             {
-                GameManager.ennemies -= 1;
+                gameManager.ennemies -= 1;
                 StopCoroutine(atk);
                 StopCoroutine(dest);
                 anim.SetTrigger("die");

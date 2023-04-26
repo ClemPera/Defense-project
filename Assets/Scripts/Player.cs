@@ -1,12 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using Random = System.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class Player : MonoBehaviour
@@ -86,8 +81,23 @@ public class Player : MonoBehaviour
             anim.SetBool("Walk", false);
         }
 
-        if (transform.position.z > 24)
-            transform.position = new Vector3(transform.position.x, transform.position.y, 24);
+        //Mur invisible
+        if (GameManager.map == 1)
+        {
+            if (transform.position.z > 24)
+                transform.position = new Vector3(transform.position.x, transform.position.y, 24);
+        }
+        else if (GameManager.map == 2)
+        {
+            if (transform.position.x > 39)
+                transform.position = new Vector3(39, transform.position.y, transform.position.z);
+            if (transform.position.z > 29)
+                transform.position = new Vector3(transform.position.x, transform.position.y, 29);
+            if (transform.position.x < -29)
+                transform.position = new Vector3(-29, transform.position.y, transform.position.z);
+            if (transform.position.z < -39)
+                transform.position = new Vector3(transform.position.x, transform.position.y, -39);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

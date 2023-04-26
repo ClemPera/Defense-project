@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
+    private GameManager gameManager;
     private Transform toAttack;
     private Animator anim;
     private NavMeshAgent agent;
@@ -18,6 +19,8 @@ public class Enemy : MonoBehaviour
     private Coroutine atk = null;
     void Start()
     {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        
         col = GetComponent<Collider>();
         toAttack = GameObject.Find("Defence point").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -29,7 +32,7 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         StartCoroutine(checkDeath());
 
-        GameManager.ennemies += 1;
+        gameManager.ennemies += 1;
     }
 
     // Update is called once per frame
@@ -45,7 +48,7 @@ public class Enemy : MonoBehaviour
         {
             if (health <= 0)
             {
-                GameManager.ennemies -= 1;
+                gameManager.ennemies -= 1;
                 StopCoroutine(atk);
                 anim.SetTrigger("die");
                 col.enabled = false;

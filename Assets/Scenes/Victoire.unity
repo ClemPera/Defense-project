@@ -293,7 +293,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1266062786}
         m_TargetAssemblyTypeName: Bouton, Assembly-CSharp
-        m_MethodName: jouer
+        m_MethodName: infini
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
