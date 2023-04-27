@@ -22,6 +22,7 @@ public class Bouton : MonoBehaviour
     
     public void menu() {
         SceneManager.LoadScene("Menu");
+        Time.timeScale = 1;
     }
     //Ajouter mode infini qui load la bonne map
     

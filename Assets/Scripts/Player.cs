@@ -18,7 +18,9 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI TextE;
     public TextMeshProUGUI bonusTextA;
     public TextMeshProUGUI bonusTextE;
+    
     public TextMeshProUGUI regen;
+    public ParticleSystem healing;
     
     public Coroutine regenEnCoursCoroutine = null;
 
@@ -138,13 +140,14 @@ public class Player : MonoBehaviour
                 transform.position = new Vector3(other.transform.position.x, transform.position.y,
                     other.transform.position.z);
                 String oldRegen = regen.GetParsedText();
-
-                regen.SetText("Regeneration en cours");
+                
+                
                 StartCoroutine(regeneration());
 
-                yield return new WaitForSeconds(5);
+                yield return new WaitForSeconds(3.5f);
+                
+                healing.Stop();
 
-                regen.SetText(oldRegen);
                 break;
             }
 
@@ -154,13 +157,14 @@ public class Player : MonoBehaviour
 
     private IEnumerator regeneration()
     {
-        GameManager.playerHp += 10;
+        healing.Play();
 
         float oldSpeed = speed;
         yield return new WaitForSeconds(0.01f);
         speed = 0;
 
         yield return new WaitForSeconds(5);
+        GameManager.playerHp += 10;
         speed = oldSpeed;
     }
 

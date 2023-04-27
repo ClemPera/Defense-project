@@ -1631,8 +1631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfc946e068f99e4db146e6157259c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  projectilePrefab: {fileID: 5897545267713601319, guid: b8e75b85b797d8a4f8567a79c957aa03, type: 3}
+  projectilePrefab: {fileID: 6798166081368609637, guid: d04dc67a7c2090543861580d860af83b, type: 3}
   health: 5
 --- !u!195 &5623529680266407607
 NavMeshAgent:

@@ -1,0 +1,35 @@
+Animations!!
+https://www.youtube.com/watch?v=Htl7ysv10Qs et créer une animation
+
+Ajouter plein de sortes de bonus : 
+- spell pour faire spawn des mobs en mode nécromentien?
+
+Idées : 
+- Rogue like (avec items qui se garde à chaque parties)
+- Nombre de munitions (avec des pop aléatoire de munitions ou t'en win après chaque game)
+- d'autres armes
+
+Rogue Like : 
+- If you killed x ennemies or if you survived x minutes: fait spawn un coffre avec un artefact à l'intérieur qui se garde entre les parties
+
+Save data : https://www.red-gate.com/simple-talk/development/dotnet-development/saving-game-data-with-unity/
+
+Armes : 
+- Rayon lazer qui à un long CD
+
+Ajouter choses quand un ennemie meurt
+
+- Feedback visuel quand le wall prends des dégats (genre faire clignoter la bdv ou contours deviennent blanc)
+
+menu échap :
+- inventaires des bonus
+	- Icons pour chaques items
+	- Description accessible when mouse is over
+
+magic?
+effet/coup de corps à corps à débloquer
+baisser la projectile speed
+Effets visuels d'autres choses
+
+Faire des jolies boutons menus comme dans Player project
+

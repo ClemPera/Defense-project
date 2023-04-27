@@ -5,6 +5,9 @@ public class Projectile : MonoBehaviour
 {
     public float speed = 30f;
     
+    public GameObject explosionEffect;
+    private EffectScript effect;
+    
     public AudioClip shotSound;
 
     private AudioSource playerAudio;
@@ -16,6 +19,7 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        effect = explosionEffect.GetComponent<EffectScript>();
         playerAudio = GetComponent<AudioSource>();
         playerAudio.PlayOneShot(shotSound, shotVolume);
         StartCoroutine(deleteProjectile());
@@ -35,14 +39,16 @@ public class Projectile : MonoBehaviour
             rotationVector.y += UnityEngine.Random.Range(0, 360);
             Instantiate(explodeProjectile, transform.position, Quaternion.Euler(rotationVector));
         }
-
+        
         if(other.gameObject.GetComponent<Enemy>() != null)
             other.gameObject.GetComponent<Enemy>().health -= 1;
         else if(other.gameObject.GetComponent<Soldier>() != null)
             other.gameObject.GetComponent<Soldier>().health -= 1;
-            
-        
+
+
+        effect.Play();
         Destroy(gameObject);
+
     }
 
     private void OnCollisionEnter(Collision col)

@@ -52,9 +52,26 @@ public class GameManager : MonoBehaviour
     private Coroutine spawnWaveCoroutine = null;
     private Coroutine spawnBonusCoroutine = null;
     
+    public Canvas pauseCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (Victoire.victoire == false)
+        {
+            playerHp = 100;
+            defHp = 1000;
+            vagues = 0;
+            vaguesSimultanees = 1;
+            maxVagues = 10;
+            maxEnnemies = 0;
+            projectileInstantiationSpeed = 0.2f;
+            projectileNumber = 0;
+        }
+        else
+        {
+            Victoire.victoire = false;
+        }
         
         health1 = GameObject.Find("Health1").GetComponent<RawImage>();
         health2 = GameObject.Find("Health2").GetComponent<RawImage>();
@@ -66,6 +83,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Health());
         StartCoroutine(win());
         StartCoroutine(lose());
+        StartCoroutine(MettreEnPause());
     }
 
     // Update is called once per frame
@@ -77,6 +95,38 @@ public class GameManager : MonoBehaviour
         defenceHealth.maxValue = 1000;
         defenceHealth.value = defHp;
     }
+    
+    IEnumerator MettreEnPause()
+    {
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (Time.timeScale != 0)
+                {
+                    Pause();
+                }else
+                {
+                    UnPause();
+                }
+            }
+            yield return null;
+        }
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        pauseCanvas.gameObject.SetActive(true);
+    }
+
+    public void UnPause()
+    {
+        pauseCanvas.gameObject.SetActive(false);
+        Time.timeScale = 1;
+    }
+    
+    
 
     IEnumerator SpawnBonus()
     {

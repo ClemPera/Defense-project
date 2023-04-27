@@ -15,7 +15,6 @@ public class Defaite : MonoBehaviour
         
         //Nombre d'ennemies tuées
         ennemies.text = "Nombre d'ennemies tués : " + GameManager.maxEnnemies;
-        Victoire.victoire = false;
     }
 
     // Update is called once per frame
