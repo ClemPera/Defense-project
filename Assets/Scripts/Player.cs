@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
         availableBonus[0] = true;
-        availableBonus[1] = true;
+        //availableBonus[1] = true;
         availableBonus[2] = true;
     }
 
@@ -225,7 +225,7 @@ public class Player : MonoBehaviour
         }
 
         else if (b == 1)
-        {
+        { //Bonus fait tout planter 
             text.text = "Balle rebondissantes";
 
             if (Input.GetKeyDown(key))

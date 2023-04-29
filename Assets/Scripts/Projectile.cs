@@ -45,7 +45,6 @@ public class Projectile : MonoBehaviour
         else if(other.gameObject.GetComponent<Soldier>() != null)
             other.gameObject.GetComponent<Soldier>().health -= 1;
 
-
         effect.Play();
         Destroy(gameObject);
 
