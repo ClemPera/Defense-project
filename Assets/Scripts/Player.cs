@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     private bool[] availableBonus = new bool[10];
 
     private GameManager gameManager;
+    
 
     // Start is called before the first frame update
     private void Start()
@@ -166,12 +167,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5);
         GameManager.playerHp += 10;
         speed = oldSpeed;
-    }
-
-    private IEnumerator StopMoving()
-    {
-        yield return new WaitForSeconds(5);
-        speed = 7;
     }
 
     private IEnumerator chooseBonus(Collider other)

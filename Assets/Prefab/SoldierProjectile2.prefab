@@ -245,3 +245,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 12
+  shotSound: {fileID: 8300000, guid: c6e18bdab42ed451ba29a512da32f052, type: 3}
+  shotVolume: 0.8

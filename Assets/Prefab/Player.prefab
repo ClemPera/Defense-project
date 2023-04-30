@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6163456592703414554, guid: ed2beabd5a7e9564d9b38261404c6fa9, type: 3}
+  slashEffect: {fileID: 0}
 --- !u!114 &936844015809034802
 MonoBehaviour:
   m_ObjectHideFlags: 0

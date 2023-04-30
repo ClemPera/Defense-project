@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Animations;
@@ -53,6 +54,10 @@ public class GameManager : MonoBehaviour
     private Coroutine spawnBonusCoroutine = null;
     
     public Canvas pauseCanvas;
+    
+    private static AudioSource source;
+    public static AudioClip shotSound; //= Resources.Load("");
+    public static float shotVolume = 0.8f;
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +89,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(win());
         StartCoroutine(lose());
         StartCoroutine(MettreEnPause());
+        
+        source = GetComponent<AudioSource>();
+        shotSound = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Sounds/Toucher.mp3", typeof(AudioClip));
     }
 
     // Update is called once per frame
@@ -94,6 +102,11 @@ public class GameManager : MonoBehaviour
         hpText.text = defHp + "/1000";
         defenceHealth.maxValue = 1000;
         defenceHealth.value = defHp;
+    }
+
+    public static void sonToucher()
+    {
+        source.PlayOneShot(shotSound, shotVolume);
     }
     
     IEnumerator MettreEnPause()

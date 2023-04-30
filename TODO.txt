@@ -26,10 +26,18 @@ menu échap :
 	- Icons pour chaques items
 	- Description accessible when mouse is over
 
-magic?
-effet/coup de corps à corps à débloquer
-baisser la projectile speed
-Effets visuels d'autres choses
+#Réparer bonus
 
-Faire des jolies boutons menus comme dans Player project
+musique de menu
+
+differentes musiques par map
+
+Ajouter un son au slash
+Ajouter à l'overlay le slash et l'arme de base avec delay de rechargement
+
+settings :
+- Son du jeu
+- son musique
+- keybind
+- ....
 

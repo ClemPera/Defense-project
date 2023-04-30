@@ -5,10 +5,15 @@ public class ProjectileSpawn : MonoBehaviour
 {
     public GameObject projectilePrefab;
     
+    public GameObject slashEffect;
+    private Slash slash;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(projectile1());
+        slash = slashEffect.GetComponent<Slash>();
+        
+        StartCoroutine(Projectile1());
+        StartCoroutine(Slash());
     }
 
     // Update is called once per frame
@@ -16,7 +21,24 @@ public class ProjectileSpawn : MonoBehaviour
     {
     }
 
-    IEnumerator projectile1()
+    IEnumerator Slash()
+    {
+        while (true)
+        {
+            if (Input.GetMouseButton(1))
+            {
+                slashEffect.SetActive(true);
+                slash.Play();
+                yield return new WaitForSeconds(0.5f);
+                slashEffect.SetActive(false);
+                yield return new WaitForSeconds(7.5f);
+            }
+
+            yield return null;
+        }
+    }
+
+    IEnumerator Projectile1()
     {
         while (true)
         {
