@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
         availableBonus[0] = true;
         //availableBonus[1] = true;
         availableBonus[2] = true;
+        availableBonus[3] = true;
+        availableBonus[4] = true;
     }
 
     // Update is called once per frame
@@ -238,6 +240,25 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(key))
             {
                 speed += (speed * 10) / 100;
+                return true;
+            }
+        }
+        else if (b == 3)
+        {
+            text.text = "Dégats du Slash (clique droit)";
+            
+            if (Input.GetKeyDown(key))
+            {
+                GameManager.slashDmg += 1;
+                return true;
+            }
+        }
+        else if (b == 4)
+        {
+            text.text = "Réd. de la recharge du Slash"; 
+            if (Input.GetKeyDown(key))
+            {
+                GameManager.slashCooldown -= 1;
                 return true;
             }
         }

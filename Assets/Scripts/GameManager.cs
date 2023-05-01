@@ -33,8 +33,9 @@ public class GameManager : MonoBehaviour
     public GameObject bonusPrefab;
 
     public static float projectileInstantiationSpeed = 0.2f;
-
     public static float projectileNumber = 0;
+    public static int slashDmg;
+    public static float slashCooldown;
 
     private RawImage health1;
     private RawImage health2;
@@ -56,8 +57,9 @@ public class GameManager : MonoBehaviour
     public Canvas pauseCanvas;
     
     private static AudioSource source;
-    public static AudioClip shotSound; //= Resources.Load("");
+    public static AudioClip shotSound; 
     public static float shotVolume = 0.8f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour
             maxEnnemies = 0;
             projectileInstantiationSpeed = 0.2f;
             projectileNumber = 0;
+            slashDmg = 1;
+            slashCooldown = 6;
         }
         else
         {
@@ -147,11 +151,11 @@ public class GameManager : MonoBehaviour
         {
             if (bonusValidation) //Quand le choix du bonus est validé, lancer le décompte pour un autre bonus
             {
-                yield return new WaitForSeconds(30);
+                yield return new WaitForSeconds(20);
                 Vector3 spawnPos = new Vector3();
                 if (map == 1)
                 {
-                    spawnPos = new Vector3(Random.Range(-40, 0), 1,
+                    spawnPos = new Vector3(Random.Range(-39, 22), 1,
                         Random.Range(23, 7));
                 }else if (map == 2) 
                 {

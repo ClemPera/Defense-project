@@ -1,5 +1,7 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProjectileSpawn : MonoBehaviour
 {
@@ -7,6 +9,8 @@ public class ProjectileSpawn : MonoBehaviour
     
     public GameObject slashEffect;
     private Slash slash;
+    public GameObject slashFront;
+    public TextMeshProUGUI slashTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,9 +33,20 @@ public class ProjectileSpawn : MonoBehaviour
             {
                 slashEffect.SetActive(true);
                 slash.Play();
+                
+                slashTimer.text =(GameManager.slashCooldown-1).ToString();
+                slashFront.SetActive(true);
                 yield return new WaitForSeconds(0.5f);
+                
                 slashEffect.SetActive(false);
-                yield return new WaitForSeconds(7.5f);
+                
+                for (int i = 1; i < GameManager.slashCooldown; i++)
+                {
+                    slashTimer.text = (GameManager.slashCooldown - i).ToString();
+                    yield return new WaitForSeconds(1f);
+                }
+                slashTimer.text = "";
+                slashFront.SetActive(false);
             }
 
             yield return null;

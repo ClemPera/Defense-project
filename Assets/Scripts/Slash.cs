@@ -26,8 +26,8 @@ public class Slash : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Enemy>() != null)
-            other.gameObject.GetComponent<Enemy>().health -= 1;
+            other.gameObject.GetComponent<Enemy>().health -= GameManager.slashDmg;
         else if (other.gameObject.GetComponent<Soldier>() != null)
-            other.gameObject.GetComponent<Soldier>().health -= 1;
+            other.gameObject.GetComponent<Soldier>().health -= GameManager.slashDmg;
     }
 }
