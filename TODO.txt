@@ -41,6 +41,5 @@ settings :
 - keybind
 - ....
 
-Bonus +1 dmg slash ou moins de cd
 
-bonus plus souvent?
+dash?
