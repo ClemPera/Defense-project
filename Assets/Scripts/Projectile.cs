@@ -33,21 +33,23 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        for (int i= 0; i < GameManager.projectileNumber; i += 1)
+        if (other.gameObject.GetComponent<Enemy>() != null || other.gameObject.GetComponent<Soldier>() != null)
         {
-            var rotationVector = transform.rotation.eulerAngles;
-            rotationVector.y += UnityEngine.Random.Range(0, 360);
-            Instantiate(explodeProjectile, transform.position, Quaternion.Euler(rotationVector));
+            for (int i = 0; i < GameManager.projectileNumber; i += 1)
+            {
+                var rotationVector = transform.rotation.eulerAngles;
+                rotationVector.y += Random.Range(0, 360);
+                Instantiate(explodeProjectile, transform.position, Quaternion.Euler(rotationVector));
+            }
+
+            if (other.gameObject.GetComponent<Enemy>() != null)
+                other.gameObject.GetComponent<Enemy>().health -= 1;
+            else if (other.gameObject.GetComponent<Soldier>() != null)
+                other.gameObject.GetComponent<Soldier>().health -= 1;
+
+            effect.Play();
+            Destroy(gameObject);
         }
-        
-        if(other.gameObject.GetComponent<Enemy>() != null)
-            other.gameObject.GetComponent<Enemy>().health -= 1;
-        else if(other.gameObject.GetComponent<Soldier>() != null)
-            other.gameObject.GetComponent<Soldier>().health -= 1;
-
-        effect.Play();
-        Destroy(gameObject);
-
     }
 
     private void OnCollisionEnter(Collision col)

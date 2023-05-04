@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     public static int slashDmg;
     public static float slashCooldown;
 
+    public static float meteorCooldown;
+    public static float meteorTime;
+
     private RawImage health1;
     private RawImage health2;
     private RawImage health3;
@@ -76,6 +79,7 @@ public class GameManager : MonoBehaviour
             projectileNumber = 0;
             slashDmg = 1;
             slashCooldown = 6;
+            meteorCooldown = 12;
         }
         else
         {

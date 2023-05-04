@@ -41,5 +41,4 @@ settings :
 - keybind
 - ....
 
-
-dash?
+Quand on arrive à vagueMax, il ne spawn pas tout les ennemies

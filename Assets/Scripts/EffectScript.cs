@@ -18,10 +18,10 @@ public class EffectScript: MonoBehaviour
         transform.SetParent(null);
         particleSystem.Play();
         
-        StartCoroutine(destroy());
+        StartCoroutine(Destroy());
     }
 
-    IEnumerator destroy()
+    IEnumerator Destroy()
     {
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);

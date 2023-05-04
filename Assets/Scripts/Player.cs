@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Numerics;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
         availableBonus[2] = true;
         availableBonus[3] = true;
         availableBonus[4] = true;
+        availableBonus[5] = true;
     }
 
     // Update is called once per frame
@@ -259,6 +261,15 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(key))
             {
                 GameManager.slashCooldown -= 1;
+                return true;
+            }
+        }
+    else if (b == 5)
+        {
+            text.text = "Réd. de la recharge du metéore"; 
+            if (Input.GetKeyDown(key))
+            {
+                GameManager.meteorCooldown -= 1;
                 return true;
             }
         }

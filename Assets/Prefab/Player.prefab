@@ -104,6 +104,9 @@ MonoBehaviour:
   slashEffect: {fileID: 2107868435085050497}
   slashFront: {fileID: 0}
   slashTimer: {fileID: 0}
+  meteor: {fileID: 3265903804814207889, guid: 75938a9878c4f8a47a8172457aa20c2d, type: 3}
+  meteorFront: {fileID: 0}
+  meteorTimer: {fileID: 0}
 --- !u!114 &936844015809034802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1637,6 +1640,10 @@ PrefabInstance:
     - target: {fileID: 1171201465392465800, guid: 4aa9f30a28a77224ba84b2a2c334c71b, type: 3}
       propertyPath: m_Name
       value: Electro slash
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171201465392465800, guid: 4aa9f30a28a77224ba84b2a2c334c71b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1233010467109672509, guid: 4aa9f30a28a77224ba84b2a2c334c71b, type: 3}
       propertyPath: m_RootOrder

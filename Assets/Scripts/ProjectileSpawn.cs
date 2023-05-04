@@ -11,18 +11,54 @@ public class ProjectileSpawn : MonoBehaviour
     private Slash slash;
     public GameObject slashFront;
     public TextMeshProUGUI slashTimer;
+
+    public GameObject meteor;
+    public GameObject meteorFront;
+    public TextMeshProUGUI meteorTimer;
+    private Camera cam;
+    
     // Start is called before the first frame update
     void Start()
     {
+        cam = Camera.main;
         slash = slashEffect.GetComponent<Slash>();
+        slashEffect.SetActive(false);
         
         StartCoroutine(Projectile1());
         StartCoroutine(Slash());
+        StartCoroutine(Meteor());
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    IEnumerator Meteor()
+    {
+        while (true){
+            RaycastHit hit;
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    Instantiate(meteor, new Vector3(hit.point.x, 1, hit.point.z), Quaternion.identity);
+                    meteorFront.SetActive(true);
+                    meteorTimer.text =(GameManager.meteorCooldown).ToString();
+                    for (int i = 1; i < GameManager.meteorCooldown; i++)
+                    {
+                        meteorTimer.text = (GameManager.meteorCooldown - i).ToString();
+                        yield return new WaitForSeconds(1f);
+                    }
+                    meteorTimer.text = "";
+                    meteorFront.SetActive(false);
+                }
+            }
+
+            yield return null;
+        }
     }
 
     IEnumerator Slash()
