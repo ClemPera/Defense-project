@@ -42,3 +42,5 @@ settings :
 - ....
 
 Quand on arrive à vagueMax, il ne spawn pas tout les ennemies
+
+Ajouter son méteor
