@@ -5,11 +5,13 @@ using UnityEngine;
 public class Slash : MonoBehaviour
 {
     private ParticleSystem particleSystem;
+    private static AudioSource source;
 
     // Start is called before the first frame update
     void Start()
     {
         particleSystem = GetComponent<ParticleSystem>();
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -20,6 +22,7 @@ public class Slash : MonoBehaviour
     public void Play()
     {
         particleSystem.Play();
+        source.Play();
     }
     
     private void OnTriggerEnter(Collider other)

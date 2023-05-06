@@ -32,7 +32,6 @@ musique de menu
 
 differentes musiques par map
 
-Ajouter un son au slash
 Ajouter à l'overlay le slash et l'arme de base avec delay de rechargement
 
 settings :
@@ -40,7 +39,3 @@ settings :
 - son musique
 - keybind
 - ....
-
-Quand on arrive à vagueMax, il ne spawn pas tout les ennemies
-
-Ajouter son méteor

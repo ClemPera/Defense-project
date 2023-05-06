@@ -17,13 +17,13 @@ public class GameManager : MonoBehaviour
     public GameObject spawnPrefab;
     public GameObject soldierPrefab;
     public static int map;
-    public static int playerHp = 100;
-    public static float defHp = 1000;
-    public static int vagues = 0;
-    public static int vaguesSimultanees = 1;
-    public static int maxVagues = 10;
+    public static int playerHp;
+    public static float defHp;
+    public static int vagues;
+    public static int vaguesSimultanees;
+    public static int maxVagues;
     public int ennemies = 0;
-    public static int maxEnnemies = 0;
+    public static int maxEnnemies;
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI bonusSpawn;
     public TextMeshProUGUI vaguesText;
@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour
     public bool bonusValidation = true;
     public GameObject bonusPrefab;
 
-    public static float projectileInstantiationSpeed = 0.2f;
-    public static float projectileNumber = 0;
+    public static float projectileInstantiationSpeed;
+    public static float projectileNumber;
     public static int slashDmg;
     public static float slashCooldown;
 
@@ -60,10 +60,6 @@ public class GameManager : MonoBehaviour
     public Canvas pauseCanvas;
     
     private static AudioSource source;
-    public static AudioClip shotSound; 
-    public static float shotVolume = 0.8f;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -84,6 +80,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Victoire.victoire = false;
+            maxVagues = 1000;
         }
         
         health1 = GameObject.Find("Health1").GetComponent<RawImage>();
@@ -97,9 +94,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(win());
         StartCoroutine(lose());
         StartCoroutine(MettreEnPause());
-        
         source = GetComponent<AudioSource>();
-        shotSound = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Sounds/Toucher.mp3", typeof(AudioClip));
     }
 
     // Update is called once per frame
@@ -112,23 +107,23 @@ public class GameManager : MonoBehaviour
         defenceHealth.value = defHp;
     }
 
-    public static void sonToucher()
+    public static void Toucher()
     {
-        source.PlayOneShot(shotSound, shotVolume);
+        source.Play();
     }
-    
+
     IEnumerator MettreEnPause()
     {
         while (true)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (Time.timeScale != 0)
-                {
-                    Pause();
-                }else
+                if (Time.timeScale == 0)
                 {
                     UnPause();
+                }else
+                {
+                    Pause();
                 }
             }
             yield return null;
@@ -147,8 +142,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
     
-    
-
     IEnumerator SpawnBonus()
     {
         while (true)
@@ -183,7 +176,6 @@ public class GameManager : MonoBehaviour
         {
             if (vagues == maxVagues)
             {
-                StopCoroutine(spawnWaveCoroutine);
                 StopCoroutine(spawnBonusCoroutine);
                 if (ennemies == 0)
                 {
@@ -220,48 +212,55 @@ public class GameManager : MonoBehaviour
         int y = 30;
         while (true)
         {
-            Vector3 spawnPos = new Vector3();
-            StartCoroutine(augmenterVague());
-            for (int i = 0; i < vaguesSimultanees; i++)
+            if (vagues != maxVagues)
             {
-                if (map == 1)
+                Vector3 spawnPos = new Vector3();
+                StartCoroutine(augmenterVague());
+                for (int i = 0; i < vaguesSimultanees; i++)
                 {
-                    spawnPos = new Vector3(Random.Range(-45, 45), 0, 40);
-                }
-                else if (map == 2)
-                {
-                    switch (Random.Range(0, 4))
+                    if (map == 1)
                     {
-                        case 0:
-                            spawnPos = new Vector3(-41, 0, Random.Range(-41, 31));
-                            break;
-                        case 1:
-                            spawnPos = new Vector3(41, 0, Random.Range(-41, 31));
-                            break;
-                        case 2:
-                            spawnPos = new Vector3(Random.Range(-41, 41), 0, 41);
-                            break;
-                        case 3:
-                            spawnPos = new Vector3(Random.Range(-41, 41), 0, -51);
-                            break;
+                        spawnPos = new Vector3(Random.Range(-45, 45), 0, 40);
+                    }
+                    else if (map == 2)
+                    {
+                        switch (Random.Range(0, 4))
+                        {
+                            case 0:
+                                spawnPos = new Vector3(-41, 0, Random.Range(-41, 31));
+                                break;
+                            case 1:
+                                spawnPos = new Vector3(41, 0, Random.Range(-41, 31));
+                                break;
+                            case 2:
+                                spawnPos = new Vector3(Random.Range(-41, 41), 0, 41);
+                                break;
+                            case 3:
+                                spawnPos = new Vector3(Random.Range(-41, 41), 0, -51);
+                                break;
+                        }
+                    }
+
+                    for (int x = 0; x <= y; x++)
+                    {
+                        Instantiate(spawnPrefab, spawnPos, spawnPrefab.transform.rotation);
+
+                        if (x < y / 10)
+                        {
+                            Instantiate(soldierPrefab, spawnPos, soldierPrefab.transform.rotation);
+                        }
+
+                        yield return new WaitForSeconds(0.1f);
                     }
                 }
 
-                for (int x = 0; x <= y; x++)
-                {
-                    Instantiate(spawnPrefab, spawnPos, spawnPrefab.transform.rotation);
-
-                    if (x < y / 10)
-                    {
-                        Instantiate(soldierPrefab, spawnPos, soldierPrefab.transform.rotation);
-                    }
-
-                    yield return new WaitForSeconds(0.1f);
-                }
+                yield return new WaitForSeconds(30);
+                y += 10;
             }
-
-            yield return new WaitForSeconds(30);
-            y += 10;
+            else
+            {
+                break;
+            }
         }
     }
 

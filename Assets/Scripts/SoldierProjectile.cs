@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class SoldierProjectile : MonoBehaviour
@@ -31,7 +32,7 @@ public class SoldierProjectile : MonoBehaviour
         }
         else if (col.gameObject.CompareTag("Player"))
         {
-            GameManager.sonToucher();
+            GameManager.Toucher();
             GameManager.playerHp -= 1;
             Cam.Shake();
             Destroy(gameObject);

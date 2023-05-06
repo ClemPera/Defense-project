@@ -96,8 +96,10 @@ public class ProjectileSpawn : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 Instantiate(projectilePrefab, new Vector3 (transform.position.x, 1, transform.position.z) , transform.rotation);
+                yield return new WaitForSeconds(GameManager.projectileInstantiationSpeed);
             }
-            yield return new WaitForSeconds(GameManager.projectileInstantiationSpeed);
+
+            yield return null;
         }
     }
 }
