@@ -5,28 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class Bouton : MonoBehaviour
 {
-    public void quitter(){
+    
+    //Quitte le jeu
+    public void Quitter(){
         Application.Quit();
-        Debug.Log("Game closed");
+        Debug.Log("Fermeture du jeu");
     }
 
-    public void map1() {
+    //Joue la map 1
+    public void Map1() {
         SceneManager.LoadScene("Main Scene");
         GameManager.map = 1;
     }
     
-    public void map2() {
+    //Joue la map 2
+    public void Map2() {
         SceneManager.LoadScene("Scene 2");
         GameManager.map = 2;
     }
     
-    public void menu() {
+    //Lance la scène Menu
+    public void Menu() {
         SceneManager.LoadScene("Menu");
         Time.timeScale = 1;
     }
-    //Ajouter mode infini qui load la bonne map
     
-    public void infini()
+    
+    //Joue le mode infini
+    public void Infini()
     {
         GameManager.maxVagues = 1000;
         if (GameManager.map == 1)

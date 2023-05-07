@@ -58,7 +58,7 @@ public class Meteor : MonoBehaviour
                 else if (other.gameObject.GetComponent<Soldier>() != null)
                     other.gameObject.GetComponent<Soldier>().health -= GameManager.slashDmg;
             }
-            catch (MissingReferenceException e)
+            catch (MissingReferenceException)
             {
                 break;
             }

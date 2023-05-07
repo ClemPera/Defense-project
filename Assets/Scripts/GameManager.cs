@@ -67,9 +67,9 @@ public class GameManager : MonoBehaviour
         {
             playerHp = 100;
             defHp = 1000;
-            vagues = 0;
-            vaguesSimultanees = 1;
-            maxVagues = 10;
+            vagues = 8;
+            vaguesSimultanees = 2;
+            maxVagues = 10; 
             maxEnnemies = 0;
             projectileInstantiationSpeed = 0.2f;
             projectileNumber = 0;
@@ -266,13 +266,14 @@ public class GameManager : MonoBehaviour
 
     IEnumerator augmenterVague()
     {
-        yield return new WaitForSeconds(0.5f);
         vagues += 1;
         
         if (vagues % 5 == 0)
         {
             vaguesSimultanees += 1;
         }
+        
+        yield return null;
     }
 
     IEnumerator Health()

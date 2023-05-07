@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Slash : MonoBehaviour
 {
-    private ParticleSystem particleSystem;
+    private ParticleSystem particle;
     private static AudioSource source;
 
     // Start is called before the first frame update
     void Start()
     {
-        particleSystem = GetComponent<ParticleSystem>();
+        particle = GetComponent<ParticleSystem>();
         source = GetComponent<AudioSource>();
     }
 
@@ -21,7 +21,7 @@ public class Slash : MonoBehaviour
 
     public void Play()
     {
-        particleSystem.Play();
+        particle.Play();
         source.Play();
     }
     

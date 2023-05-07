@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class EffectScript: MonoBehaviour
 {
-    private ParticleSystem particleSystem;
+    private ParticleSystem particle;
     
     // Start is called before the first frame update
     void Start()
     {
-        particleSystem = GetComponent<ParticleSystem>();
+        particle= GetComponent<ParticleSystem>();
     }
 
     public void Play()
     {
         transform.SetParent(null);
-        particleSystem.Play();
+        particle.Play();
         
         StartCoroutine(Destroy());
     }

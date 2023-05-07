@@ -2762,7 +2762,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2066851557}
         m_TargetAssemblyTypeName: Bouton, Assembly-CSharp
-        m_MethodName: menu
+        m_MethodName: Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

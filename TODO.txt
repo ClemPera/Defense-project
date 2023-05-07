@@ -19,8 +19,6 @@ Armes :
 
 Ajouter choses quand un ennemie meurt
 
-- Feedback visuel quand le wall prends des dégats (genre faire clignoter la bdv ou contours deviennent blanc)
-
 menu échap :
 - inventaires des bonus
 	- Icons pour chaques items
@@ -28,14 +26,24 @@ menu échap :
 
 #Réparer bonus
 
-musique de menu
-
-differentes musiques par map
-
-Ajouter à l'overlay le slash et l'arme de base avec delay de rechargement
-
 settings :
 - Son du jeu
 - son musique
 - keybind
 - ....
+
+
+Clear code
+Commentaires
+
+build
+git add
+
+TODO Fin : 
+Commentaire global au début de tout les scripts avec date/nom/description général
+Description au début de chaque function
+Description au début de chaque boucle
+description des variable lors de sa déclaration
+Nom significatifs pour les variables/scripts et objets
+Organisation des médias et objets
+Supprimer les éléments non utilisés

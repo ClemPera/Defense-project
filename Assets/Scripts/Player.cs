@@ -144,8 +144,6 @@ public class Player : MonoBehaviour
             {
                 transform.position = new Vector3(other.transform.position.x, transform.position.y,
                     other.transform.position.z);
-                String oldRegen = regen.GetParsedText();
-                
                 
                 StartCoroutine(regeneration());
 
