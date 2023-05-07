@@ -3,19 +3,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* Fait par Clément Pera
+ * Fait le 07 Mai 2023
+ * 
+ * Ce script gère l'apparition des projectiles du joueur
+ */
+
 public class ProjectileSpawn : MonoBehaviour
 {
-    public GameObject projectilePrefab;
+    public GameObject projectilePrefab; //Prefab du projectile
     
-    public GameObject slashEffect;
-    private Slash slash;
-    public GameObject slashFront;
-    public TextMeshProUGUI slashTimer;
+    public GameObject slashEffect; //Prefab de l'effet du slash
+    private Slash slash; //Script de l'effet du slash
+    public GameObject slashFront; //Carré gris qui apparait quand le slash est utilisé 
+    public TextMeshProUGUI slashTimer; //Timer du slash
 
-    public GameObject meteor;
-    public GameObject meteorFront;
-    public TextMeshProUGUI meteorTimer;
-    private Camera cam;
+    public GameObject meteor; //Prefab du météore
+    public GameObject meteorFront; //Carré gris qui apparait quand le météore est utilisé
+    public TextMeshProUGUI meteorTimer; //Timer du météore
+    private Camera cam; //Caméra principale
     
     // Start is called before the first frame update
     void Start()
@@ -34,6 +40,7 @@ public class ProjectileSpawn : MonoBehaviour
     {
     }
 
+    //Fait apparaitre un météore à l'endroit où le joueur l'active 
     IEnumerator Meteor()
     {
         while (true){
@@ -61,11 +68,12 @@ public class ProjectileSpawn : MonoBehaviour
         }
     }
 
+    //Fait apparaitre le slash devant le joueur et joue l'animation
     IEnumerator Slash()
     {
         while (true)
         {
-            if (Input.GetMouseButton(1))
+            if (Input.GetButton("Fire2"))
             {
                 slashEffect.SetActive(true);
                 slash.Play();
@@ -89,11 +97,12 @@ public class ProjectileSpawn : MonoBehaviour
         }
     }
 
+    //Fait apparaitre un projectile devant le joueur
     IEnumerator Projectile1()
     {
         while (true)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetButton("Fire1"))
             {
                 Instantiate(projectilePrefab, new Vector3 (transform.position.x, 1, transform.position.z) , transform.rotation);
                 yield return new WaitForSeconds(GameManager.projectileInstantiationSpeed);

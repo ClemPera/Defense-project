@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/* Fait par Clément Pera
+ * Fait le 07 Mai 2023
+ * 
+ * Ce script gère les projectiles de l'ennemie soldier 
+ */
 public class SoldierProjectile : MonoBehaviour
 {
-    public float speed = 30f;
+    public float speed = 30f; //Vitesse du projectile
     
     // Start is called before the first frame update
     void Start()
@@ -24,6 +29,7 @@ public class SoldierProjectile : MonoBehaviour
         
     }
     
+    //Si le projectile touche un mur, il est détruit et s'il touche le joueur, il perd de la vie
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.CompareTag("Wall"))

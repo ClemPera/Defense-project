@@ -118,9 +118,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c6e18bdab42ed451ba29a512da32f052, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -218,8 +218,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   explosionEffect: {fileID: 5615889158448915477}
-  shotSound: {fileID: 8300000, guid: c6e18bdab42ed451ba29a512da32f052, type: 3}
-  shotVolume: 0.4
   explodeProjectile: {fileID: 6163456592703414554}
 --- !u!65 &6163456593498794809
 BoxCollider:

@@ -12,57 +12,65 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
+/* Fait par Clément Pera
+ * Fait le 07 Mai 2023
+ * 
+ * Ce script gère une les mécaniques du jeu
+ */
 public class GameManager : MonoBehaviour
 {
-    public GameObject spawnPrefab;
-    public GameObject soldierPrefab;
-    public static int map;
-    public static int playerHp;
-    public static float defHp;
-    public static int vagues;
-    public static int vaguesSimultanees;
-    public static int maxVagues;
-    public int ennemies = 0;
-    public static int maxEnnemies;
-    public TextMeshProUGUI hpText;
-    public TextMeshProUGUI bonusSpawn;
-    public TextMeshProUGUI vaguesText;
-    public TextMeshProUGUI ennemiesText;
-
-    public bool bonusValidation = true;
-    public GameObject bonusPrefab;
-
-    public static float projectileInstantiationSpeed;
-    public static float projectileNumber;
-    public static int slashDmg;
-    public static float slashCooldown;
-
-    public static float meteorCooldown;
-    public static float meteorTime;
-
-    private RawImage health1;
-    private RawImage health2;
-    private RawImage health3;
-    private RawImage health4;
-    private RawImage health5;
-
-    public Texture h0;
-    public Texture h25;
-    public Texture h50;
-    public Texture h75;
-    public Texture h100;
-
-    public Slider defenceHealth;
+    public GameObject araignePrefab; //Prefab de l'ennemie araignée
+    public GameObject soldierPrefab; //Prefab de l'ennemie soldier
     
-    private Coroutine spawnWaveCoroutine = null;
-    private Coroutine spawnBonusCoroutine = null;
+    public static int map; //Numéro de la map
+    public static int playerHp; //Vie du joueur
+    public static float defHp; //Vie du point de défence
+    public static int vagues; //Nombre de vagues
+    public static int vaguesSimultanees; //Nombre de vagues simultanées
+    public static int maxVagues; //Nombre de vagues maximum
+    public int ennemies = 0; //Nombre d'ennemies sur la map
+    public static int maxEnnemies; //Nombre d'ennemies maximum
     
-    public Canvas pauseCanvas;
+    public TextMeshProUGUI hpText; //Texte de la vie du joueur
+    public TextMeshProUGUI bonusSpawn; //Texte du bonus
+    public TextMeshProUGUI vaguesText; //Texte du nombre de vagues
+    public TextMeshProUGUI ennemiesText; //Texte du nombre d'ennemies
+
+    public bool bonusValidation = true; //Booléen de validation si le bonus est pris
+    public GameObject bonusPrefab; //Prefab du bonus
+
+    public static float projectileInstantiationSpeed; //Vitesse d'instanciation des projectiles
+    public static float projectileNumber; //Nombre de projectiles
+    public static int slashDmg; //Dégats du slash
+    public static float slashCooldown; //Cooldown du slash
+
+    public static float meteorCooldown; //Cooldown du météore 
+
+    private RawImage health1; //Image du premier coeur de vie du joueur
+    private RawImage health2; //Image du deuxième coeur de vie du joueur
+    private RawImage health3; //Image du troisième coeur de vie du joueur
+    private RawImage health4; //Image du quatrième coeur de vie du joueur
+    private RawImage health5; //Image du cinquième coeur de vie du joueur
+
+    public Texture h0; //Texture du coeur vide
+    public Texture h25; //Texture du coeur à 25%
+    public Texture h50; //Texture du coeur à 50%
+    public Texture h75; //Texture du coeur à 75%
+    public Texture h100; //Texture du coeur plein
+
+    public Slider defenceHealth; //Slider de la vie du point de défence
     
-    private static AudioSource source;
+    private Coroutine spawnWaveCoroutine = null; //Coroutine de spawn des vagues
+    private Coroutine spawnBonusCoroutine = null; //Coroutine de spawn des bonus
+    
+    public Canvas pauseCanvas; //Menu pause
+    
+    private static AudioSource joueurTouche; //Audio quand le joueur est touché 
+    
     // Start is called before the first frame update
     void Start()
     {
+        //Si le joueur n'est pas en mode infini, on reset les valeurs
         if (Victoire.victoire == false)
         {
             playerHp = 100;
@@ -88,13 +96,16 @@ public class GameManager : MonoBehaviour
         health3 = GameObject.Find("Health3").GetComponent<RawImage>();
         health4 = GameObject.Find("Health4").GetComponent<RawImage>();
         health5 = GameObject.Find("Health5").GetComponent<RawImage>();
+        
         spawnWaveCoroutine = StartCoroutine(SpawnWave());
         spawnBonusCoroutine = StartCoroutine(SpawnBonus());
+        
         StartCoroutine(Health());
         StartCoroutine(win());
         StartCoroutine(lose());
         StartCoroutine(MettreEnPause());
-        source = GetComponent<AudioSource>();
+        
+        joueurTouche = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -107,11 +118,13 @@ public class GameManager : MonoBehaviour
         defenceHealth.value = defHp;
     }
 
+    //Fonction si le joueur se fait touché, jouer un son
     public static void Toucher()
     {
-        source.Play();
+        joueurTouche.Play();
     }
 
+    //Coroutine pour mettre en pause le jeu si je joueur appuie sur la touche Echap
     IEnumerator MettreEnPause()
     {
         while (true)
@@ -130,18 +143,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Fonction qui met met en pause le jeu
     public void Pause()
     {
         Time.timeScale = 0;
         pauseCanvas.gameObject.SetActive(true);
     }
 
+    //Fonction qui enlève la pause du jeu
     public void UnPause()
     {
         pauseCanvas.gameObject.SetActive(false);
         Time.timeScale = 1;
     }
     
+    //Coroutine qui fait spawn les bonus de manière aléatoire toutes les 30 secondes dès que le joueur a pris le bonus
     IEnumerator SpawnBonus()
     {
         while (true)
@@ -169,6 +185,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Coroutine qui vérifie si le joueur à gagner
     IEnumerator win()
     {
         yield return new WaitForSeconds(10);
@@ -187,6 +204,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Coroutine qui vérifie si le joueur à perdu
     IEnumerator lose()
     {
         while (true)
@@ -200,6 +218,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    //Coroutine qui affiche le texte de spawn du bonus
     IEnumerator BonusSpawnText()
     {
         bonusSpawn.gameObject.SetActive(true);
@@ -207,15 +226,18 @@ public class GameManager : MonoBehaviour
         bonusSpawn.gameObject.SetActive(false);
     }
 
+    
+    //Coroutine qui fait spawn les nouvelles vagues d'ennemies
     IEnumerator SpawnWave()
     {
-        int y = 30;
+        int nombreEnnemies = 30;
         while (true)
         {
             if (vagues != maxVagues)
             {
                 Vector3 spawnPos = new Vector3();
                 StartCoroutine(augmenterVague());
+                //Fait instantier plusieurs vagues en même temps selon le nombre de vagues simultanées
                 for (int i = 0; i < vaguesSimultanees; i++)
                 {
                     if (map == 1)
@@ -241,11 +263,11 @@ public class GameManager : MonoBehaviour
                         }
                     }
 
-                    for (int x = 0; x <= y; x++)
+                    for (int x = 0; x <= nombreEnnemies; x++)
                     {
-                        Instantiate(spawnPrefab, spawnPos, spawnPrefab.transform.rotation);
+                        Instantiate(araignePrefab, spawnPos, araignePrefab.transform.rotation);
 
-                        if (x < y / 10)
+                        if (x < nombreEnnemies / 10)
                         {
                             Instantiate(soldierPrefab, spawnPos, soldierPrefab.transform.rotation);
                         }
@@ -255,7 +277,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 yield return new WaitForSeconds(30);
-                y += 10;
+                nombreEnnemies += 10;
             }
             else
             {
@@ -264,6 +286,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Coroutine qui fait augmenter le nombre de vagues affiché à l'écran
+    //et le nombre de vagues simultanées toutes les 5 vagues
     IEnumerator augmenterVague()
     {
         vagues += 1;
@@ -276,6 +300,7 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
+    //Coroutine qui met à jour la barre de vie du joueur
     IEnumerator Health()
     {
         while (true)

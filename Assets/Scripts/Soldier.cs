@@ -4,20 +4,25 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
+/* Fait par Clément Pera
+ * Fait le 07 Mai 2023
+ * 
+ * Ce script les ennemies de type soldats
+ */
 public class Soldier : MonoBehaviour
 {
-    private GameManager gameManager;
-    private Transform toAttack;
-    public GameObject projectilePrefab;
-    private NavMeshAgent agent;
-    public int health = 5;
-    private Animator anim;
-    private Collider col;
+    private GameManager gameManager; //Le game manager
+    private Transform toAttack; //Le transform point à attaquer
+    public GameObject projectilePrefab; //Le prefab du projectile
+    private NavMeshAgent agent; //L'agent NavMesh
+    public int health = 5; //La vie du soldat
+    private Animator anim; //L'animator de l'objet
+    private Collider col; //Le collider de l'objet
+
+    private Coroutine dest = null; //La coroutine de destination
+    private Coroutine atk = null; //La coroutine d'attaque
     
     // Start is called before the first frame update
-
-    private Coroutine dest = null;
-    private Coroutine atk = null;
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -39,6 +44,7 @@ public class Soldier : MonoBehaviour
         toAttack = GameObject.Find("Player").transform;
     }
     
+    //Cette coroutine assigne la destination à l'emplacememnt du joueur
     IEnumerator destination()
     {
         while (true)
@@ -49,6 +55,7 @@ public class Soldier : MonoBehaviour
 
     }
 
+    //Cette coroutine vérifie si la vie de l'objet est à 0, si c'est le cas, il meurt
     IEnumerator checkDeath()
     {
         bool isDead = false;
@@ -70,12 +77,15 @@ public class Soldier : MonoBehaviour
         }
     }
 
+    //Cette coroutine fait mourir l'objet
     IEnumerator die()
     {
         GameManager.maxEnnemies += 1;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
     }
+    
+    //Cette coroutine gère l'instantiation des projectiles
     IEnumerator attack()
     {
         while (true)

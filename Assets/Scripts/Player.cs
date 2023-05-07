@@ -6,29 +6,34 @@ using TMPro;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
+/* Fait par Clément Pera
+ * Fait le 07 Mai 2023
+ * 
+ * Ce script gère le joueur
+ */
 public class Player : MonoBehaviour
 {
-    private Camera cam;
+    private Camera cam; //Camera principale
 
-    public static float speed = 7f;
-    public float horIn;
-    public float verIn;
+    public static float speed = 7f; //Vitesse du joueur
+    public float horIn; //Input horizontal
+    public float verIn; //Input vertical
 
-    private Animator anim;
+    private Animator anim; //Animator du joueur
 
-    public TextMeshProUGUI TextA;
-    public TextMeshProUGUI TextE;
-    public TextMeshProUGUI bonusTextA;
-    public TextMeshProUGUI bonusTextE;
+    public TextMeshProUGUI Text1; //Texte du bonus 1 
+    public TextMeshProUGUI Text2; //Texte du bonus 2
+    public TextMeshProUGUI bonusText1; //Texte du premier bonus
+    public TextMeshProUGUI bonusText2; //Texte du deuxième bonus
     
-    public TextMeshProUGUI regen;
-    public ParticleSystem healing;
+    public TextMeshProUGUI regen; //Texte de régénération
+    public ParticleSystem healing; //Effet de régénération
     
-    public Coroutine regenEnCoursCoroutine = null;
+    public Coroutine regenEnCoursCoroutine = null; //Coroutine de régénération
 
-    private bool[] availableBonus = new bool[10];
+    private bool[] availableBonus = new bool[10]; //Tableau des bonus disponibles
 
-    private GameManager gameManager;
+    private GameManager gameManager; //GameManager
     
     // Start is called before the first frame update
     private void Start()
@@ -52,6 +57,7 @@ public class Player : MonoBehaviour
         move();
     }
 
+    //Fait tourner le joueur en fonction de la position de la souris
     private void followCursor()
     {
         //Look at direction : https://answers.unity.com/questions/731796/how-to-project-the-mouse-cursor-into-3d-space-for.html
@@ -68,6 +74,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Gère les déplacements et animation de déplacement du joueur
     private void move()
     {
         horIn = Input.GetAxis("Horizontal");
@@ -78,7 +85,7 @@ public class Player : MonoBehaviour
             transform.position.z + speed * verIn * Time.deltaTime);
         transform.position = new Vector3(transform.position.x + speed * horIn * Time.deltaTime, transform.position.y,
             transform.position.z);
-        //transform.Translate(Vector3.forward * speed * verIn);
+        
         if (horIn > 0.01 || horIn < -0.01 || verIn > 0.01 || verIn < -0.01)
         {
             anim.SetBool("Walk", true);
@@ -107,6 +114,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Gère les collisions avec les bonus et les régénérations
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Powerup"))
@@ -125,6 +133,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Gère quand on sort de la zone de régénération
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Regen"))
@@ -136,6 +145,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Gère les entrée permettant la régénération
     private IEnumerator regenEnCours(Collider other)
     {
         while (true)
@@ -158,6 +168,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Gère la régénération
     private IEnumerator regeneration()
     {
         healing.Play();
@@ -171,6 +182,7 @@ public class Player : MonoBehaviour
         speed = oldSpeed;
     }
 
+    //Gère la séléction des bonus 
     private IEnumerator chooseBonus(Collider other)
     {
         int rb, rb2;
@@ -179,6 +191,7 @@ public class Player : MonoBehaviour
         KeyCode key = KeyCode.Alpha1;
         KeyCode key2 = KeyCode.Alpha2;
 
+        //Sélection aléatoire des bonus en fonction des bonus disponibles
         do
         {
             rb = UnityEngine.Random.Range(0, availableBonus.Length);
@@ -189,25 +202,25 @@ public class Player : MonoBehaviour
             rb2 = UnityEngine.Random.Range(0, availableBonus.Length);
         } while (availableBonus[rb2] == false || rb2 == rb);
 
-        bonusTextA.gameObject.SetActive(true);
-        bonusTextE.gameObject.SetActive(true);
-        TextA.gameObject.SetActive(true);
-        TextE.gameObject.SetActive(true);
+        bonusText1.gameObject.SetActive(true);
+        bonusText2.gameObject.SetActive(true);
+        Text1.gameObject.SetActive(true);
+        Text2.gameObject.SetActive(true);
         while (!ok && !ok2)
         {
-            ok = bonus(rb, bonusTextA, key);
-            ok2 = bonus(rb2, bonusTextE, key2);
+            ok = bonus(rb, bonusText1, key);
+            ok2 = bonus(rb2, bonusText2, key2);
             yield return null;
         }
 
-        bonusTextA.gameObject.SetActive(false);
-        bonusTextE.gameObject.SetActive(false);
-        TextA.gameObject.SetActive(false);
-        TextE.gameObject.SetActive(false);
+        bonusText1.gameObject.SetActive(false);
+        bonusText2.gameObject.SetActive(false);
+        Text1.gameObject.SetActive(false);
+        Text2.gameObject.SetActive(false);
         gameManager.bonusValidation = true;
-
     }
 
+    //Gère les bonus
     private bool bonus(int b, TextMeshProUGUI text, KeyCode key)
     {
         if (b == 0)
