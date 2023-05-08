@@ -15,8 +15,7 @@ public class Slash : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        particle = GetComponent<ParticleSystem>();
-        source = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -27,7 +26,10 @@ public class Slash : MonoBehaviour
     //Joue l'animation et le son du slash
     public void Play()
     {
+        particle = GetComponent<ParticleSystem>();
         particle.Play();
+        
+        source = GetComponent<AudioSource>();
         source.Play();
     }
     
