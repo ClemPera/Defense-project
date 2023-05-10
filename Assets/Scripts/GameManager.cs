@@ -75,9 +75,9 @@ public class GameManager : MonoBehaviour
         {
             playerHp = 100;
             defHp = 1000;
-            vagues = 8;
-            vaguesSimultanees = 2;
-            maxVagues = 10; 
+            vagues = 0;
+            vaguesSimultanees = 1;
+            maxVagues = 6; 
             maxEnnemies = 0;
             projectileInstantiationSpeed = 0.2f;
             projectileNumber = 0;

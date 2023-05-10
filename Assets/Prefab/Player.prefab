@@ -121,10 +121,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horIn: 0
   verIn: 0
-  TextA: {fileID: 0}
-  TextE: {fileID: 0}
-  bonusTextA: {fileID: 0}
-  bonusTextE: {fileID: 0}
+  Text1: {fileID: 0}
+  Text2: {fileID: 0}
+  bonusText1: {fileID: 0}
+  bonusText2: {fileID: 0}
   regen: {fileID: 0}
   healing: {fileID: 0}
 --- !u!1 &145617361304340297

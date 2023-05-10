@@ -22,7 +22,6 @@ public class Victoire : MonoBehaviour
         
         vagues.text = "Nombre de vagues : " + GameManager.vagues;
         
-        //Nombre d'ennemies tuées
         ennemies.text = "Nombre d'ennemies tués : " + GameManager.maxEnnemies;
     }
 

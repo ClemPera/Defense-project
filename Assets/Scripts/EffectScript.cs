@@ -10,11 +10,11 @@ public class EffectScript: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        particle= GetComponent<ParticleSystem>();
     }
 
     public void Play()
     {
+        particle = GetComponent<ParticleSystem>();
         transform.SetParent(null);
         particle.Play();
         

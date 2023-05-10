@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414729, b: 0.121078685, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -837,7 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef696a41ad5020b584ace974d9483d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPrefab: {fileID: 1228969406450134147, guid: 9e4e2b665ec8f3e7b9873993cb4e2521, type: 3}
+  araignePrefab: {fileID: 1228969406450134147, guid: 9e4e2b665ec8f3e7b9873993cb4e2521, type: 3}
   soldierPrefab: {fileID: 2627702553208591668, guid: 2ba20565abe99054fb99bcf194575230, type: 3}
   ennemies: 0
   hpText: {fileID: 534424150}
@@ -2515,7 +2515,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708216526}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 10}
   m_ConstrainProportionsScale: 0
@@ -8921,6 +8921,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1912808136}
     - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
+      propertyPath: Text1
+      value: 
+      objectReference: {fileID: 329894070}
+    - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
+      propertyPath: Text2
+      value: 
+      objectReference: {fileID: 221724460}
+    - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
       propertyPath: TextA
       value: 
       objectReference: {fileID: 329894070}
@@ -8936,6 +8944,14 @@ PrefabInstance:
       propertyPath: healing
       value: 
       objectReference: {fileID: 1647926726}
+    - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
+      propertyPath: bonusText1
+      value: 
+      objectReference: {fileID: 1764485223}
+    - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
+      propertyPath: bonusText2
+      value: 
+      objectReference: {fileID: 903015135}
     - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
       propertyPath: bonusTextA
       value: 

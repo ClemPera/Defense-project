@@ -9583,11 +9583,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1655348449}
     - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
-      propertyPath: TextA
+      propertyPath: Text1
       value: 
       objectReference: {fileID: 716435544}
     - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
-      propertyPath: TextE
+      propertyPath: Text2
       value: 
       objectReference: {fileID: 973540062}
     - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
@@ -9599,11 +9599,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 631219555}
     - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
-      propertyPath: bonusTextA
+      propertyPath: bonusText1
       value: 
       objectReference: {fileID: 1658847494}
     - target: {fileID: 936844015809034802, guid: 6ba6da1cdc93dee4fb6d350c6f1a7bd1, type: 3}
-      propertyPath: bonusTextE
+      propertyPath: bonusText2
       value: 
       objectReference: {fileID: 478138895}
     m_RemovedComponents: []
